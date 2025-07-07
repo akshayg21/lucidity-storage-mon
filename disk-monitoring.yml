@@ -1,0 +1,75 @@
+---
+- name: Multi-Account EC2 Disk Utilization Monitoring
+  hosts: all
+  gather_facts: yes
+  vars:
+    report_timestamp: "{{ ansible_date_time.iso8601 }}"
+    s3_bucket: "enterprise-disk-monitoring-reports"
+    
+  tasks:
+    - name: Get EBS volumes for instance
+      amazon.aws.ec2_vol_info:
+        filters:
+          "attachment.instance-id": "{{ instance_id }}"
+      delegate_to: localhost
+      register: ebs_volumes
+
+    - name: Create consolidated report data
+      set_fact:
+        disk_report:
+          instance_id: "{{ instance_id }}"
+          account_id: "{{ account_id }}"
+          account_name: "{{ account_name | default('unknown') }}"
+          region: "{{ placement.region }}"
+          instance_type: "{{ instance_type }}"
+          platform: "{{ platform | default('linux') }}"
+          private_ip: "{{ private_ip_address }}"
+          public_ip: "{{ public_ip_address | default('N/A') }}"
+          timestamp: "{{ report_timestamp }}"
+          disk_usage: "{{ ebs_volumes.volumes | map('extract', ['size', 'volume_id', 'volume_type', 'state', 'attachments']) | list }}"
+
+    - name: Aggregate all reports
+      set_fact:
+        all_reports: "{{ all_reports | default([]) + [disk_report] }}"
+      delegate_to: localhost
+      delegate_facts: true
+
+- name: Generate and store consolidated report
+  hosts: localhost
+  gather_facts: no
+  vars:
+    report_file: "disk-utilization-report-{{ ansible_date_time.epoch }}.json"
+    csv_file: "disk-utilization-report-{{ ansible_date_time.epoch }}.csv"
+    
+  tasks:
+    - name: Create JSON report
+      copy:
+        content: "{{ all_reports | to_nice_json }}"
+        dest: "./reports/{{ report_file }}"
+      
+    - name: Create CSV report
+      template:
+        src: disk_report.csv.j2
+        dest: "./reports/{{ csv_file }}"
+
+    - name: Upload reports to S3
+      amazon.aws.s3_object:
+        bucket: "{{ s3_bucket }}"
+        object: "reports/{{ item }}"
+        src: "./reports/{{ item }}"
+        mode: put
+      loop:
+        - "{{ report_file }}"
+        - "{{ csv_file }}"
+      ignore_errors: yes
+
+    - name: Generate summary statistics
+      debug:
+        msg: |
+          === DISK UTILIZATION SUMMARY ===
+          Total Instances Monitored: {{ all_reports | length }}
+          Accounts: {{ all_reports | map(attribute='account_name') | unique | list | join(', ') }}
+          High Usage Instances (>80%): {{ all_reports | selectattr('disk_usage', 'defined') | 
+            map('extract', ['disk_usage']) | flatten | 
+            selectattr('percent', 'gt', 80) | list | length }}
+          Report Generated: {{ ansible_date_time.iso8601 }}

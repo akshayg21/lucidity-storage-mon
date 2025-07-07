@@ -1,0 +1,160 @@
+<mxfile host="app.diagrams.net" modified="2024-01-15T10:30:00.000Z" agent="5.0" etag="def456" version="22.1.16" type="device">
+  <diagram name="Data-Flow-Process" id="dataflow">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Title -->
+        <mxCell id="title" value="Multi-Account Disk Monitoring - Data Flow Process" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="20" width="600" height="30" as="geometry" />
+        </mxCell>
+        
+        <!-- Step 1: Initialization -->
+        <mxCell id="step1" value="1. Ansible Initialization" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="80" width="150" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Step 2: Dynamic Inventory -->
+        <mxCell id="step2" value="2. AWS EC2 Dynamic&#xa;Inventory Discovery" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="250" y="80" width="150" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Step 3: Role Assumption -->
+        <mxCell id="step3" value="3. Cross-Account&#xa;Role Assumption" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="450" y="80" width="150" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Step 4: Instance Connection -->
+        <mxCell id="step4" value="4. Instance Connection&#xa;(SSM/SSH/WinRM)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="650" y="80" width="150" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Step 5: Data Collection -->
+        <mxCell id="step5" value="5. Disk Utilization&#xa;Data Collection" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="850" y="80" width="150" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Step 6: Data Processing -->
+        <mxCell id="step6" value="6. Data Processing&#xa;&amp; Aggregation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fad7ac;strokeColor=#b46504;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="850" y="200" width="150" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Step 7: Report Generation -->
+        <mxCell id="step7" value="7. Report Generation&#xa;(JSON/CSV)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d0cee2;strokeColor=#56517e;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="650" y="200" width="150" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Step 8: S3 Storage -->
+        <mxCell id="step8" value="8. S3 Storage &amp;&#xa;Distribution" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b0e3e6;strokeColor=#0e8088;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="450" y="200" width="150" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Step 9: Summary Output -->
+        <mxCell id="step9" value="9. Summary Statistics&#xa;&amp; Alerts" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffcccc;strokeColor=#36393d;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="250" y="200" width="150" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- AWS Services Icons -->
+        <mxCell id="ec2-icon" value="EC2" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn.icon-icons.com/icons2/2407/PNG/512/aws_ec2_icon_146058.png" vertex="1" parent="1">
+          <mxGeometry x="300" y="30" width="30" height="30" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="iam-icon" value="IAM" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn.icon-icons.com/icons2/2407/PNG/512/aws_iam_icon_146061.png" vertex="1" parent="1">
+          <mxGeometry x="500" y="30" width="30" height="30" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="ssm-icon" value="SSM" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn.icon-icons.com/icons2/2407/PNG/512/aws_systems_manager_icon_146085.png" vertex="1" parent="1">
+          <mxGeometry x="700" y="30" width="30" height="30" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="s3-icon" value="S3" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn.icon-icons.com/icons2/2407/PNG/512/aws_s3_icon_146074.png" vertex="1" parent="1">
+          <mxGeometry x="500" y="150" width="30" height="30" as="geometry" />
+        </mxCell>
+        
+        <!-- Flow Arrows -->
+        <mxCell id="arrow1" value="" style="endArrow=classic;html=1;rounded=0;strokeWidth=2;strokeColor=#1f497d;" edge="1" parent="1" source="step1" target="step2">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="200" y="110" as="sourcePoint" />
+            <mxPoint x="250" y="110" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow2" value="" style="endArrow=classic;html=1;rounded=0;strokeWidth=2;strokeColor=#1f497d;" edge="1" parent="1" source="step2" target="step3">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="400" y="110" as="sourcePoint" />
+            <mxPoint x="450" y="110" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow3" value="" style="endArrow=classic;html=1;rounded=0;strokeWidth=2;strokeColor=#1f497d;" edge="1" parent="1" source="step3" target="step4">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="600" y="110" as="sourcePoint" />
+            <mxPoint x="650" y="110" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow4" value="" style="endArrow=classic;html=1;rounded=0;strokeWidth=2;strokeColor=#1f497d;" edge="1" parent="1" source="step4" target="step5">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="800" y="110" as="sourcePoint" />
+            <mxPoint x="850" y="110" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow5" value="" style="endArrow=classic;html=1;rounded=0;strokeWidth=2;strokeColor=#1f497d;" edge="1" parent="1" source="step5" target="step6">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="925" y="140" as="sourcePoint" />
+            <mxPoint x="925" y="200" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow6" value="" style="endArrow=classic;html=1;rounded=0;strokeWidth=2;strokeColor=#1f497d;" edge="1" parent="1" source="step6" target="step7">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="850" y="230" as="sourcePoint" />
+            <mxPoint x="800" y="230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow7" value="" style="endArrow=classic;html=1;rounded=0;strokeWidth=2;strokeColor=#1f497d;" edge="1" parent="1" source="step7" target="step8">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="650" y="230" as="sourcePoint" />
+            <mxPoint x="600" y="230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="arrow8" value="" style="endArrow=classic;html=1;rounded=0;strokeWidth=2;strokeColor=#1f497d;" edge="1" parent="1" source="step8" target="step9">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="450" y="230" as="sourcePoint" />
+            <mxPoint x="400" y="230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        
+        <!-- Data Types -->
+        <mxCell id="data-types" value="Data Collection Types:&#xa;• Linux: df -h command&#xa;• Windows: Get-WmiObject Win32_LogicalDisk&#xa;• Output: JSON structured data&#xa;• Metrics: Size, Used, Available, Percent" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=11;align=left;verticalAlign=top;spacingTop=10;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="50" y="320" width="300" height="100" as="geometry" />
+        </mxCell>
+        
+        <!-- Output Formats -->
+        <mxCell id="output-formats" value="Output Formats:&#xa;• JSON: Structured data for APIs&#xa;• CSV: Human-readable spreadsheet format&#xa;• Console: Real-time summary statistics&#xa;• S3: Centralized storage with versioning" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=11;align=left;verticalAlign=top;spacingTop=10;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="400" y="320" width="300" height="100" as="geometry" />
+        </mxCell>
+        
+        <!-- Security Features -->
+        <mxCell id="security" value="Security Features:&#xa;• Cross-account IAM roles&#xa;• STS temporary credentials&#xa;• External ID validation&#xa;• CloudTrail audit logging&#xa;• Least privilege access" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=11;align=left;verticalAlign=top;spacingTop=10;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="750" y="320" width="300" height="100" as="geometry" />
+        </mxCell>
+        
+        <!-- Parallel Processing Indicator -->
+        <mxCell id="parallel" value="Parallel Processing" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="650" y="300" width="150" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- Error Handling -->
+        <mxCell id="error-handling" value="Error Handling &amp; Retry Logic" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#ffcccc;strokeColor=#d79b00;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="450" y="300" width="150" height="40" as="geometry" />
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

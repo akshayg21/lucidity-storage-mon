@@ -1,0 +1,42 @@
+---
+- name: Setup Cross-Account IAM Roles for Disk Monitoring
+  hosts: localhost
+  gather_facts: no
+  vars:
+    accounts:
+      - account_id: "111111111111"
+        account_name: "production"
+      - account_id: "222222222222" 
+        account_name: "staging"
+      - account_id: "333333333333"
+        account_name: "development"
+    central_account_id: "{{ ansible_env.AWS_ACCOUNT_ID | default('000000000000') }}"
+    
+  tasks:
+    - name: Create IAM role for disk monitoring in each account
+      amazon.aws.iam_role:
+        name: DiskMonitoringRole
+        assume_role_policy_document: |
+          {
+            "Version": "2012-10-17",
+            "Statement": [
+              {
+                "Effect": "Allow",
+                "Principal": {
+                  "AWS": "arn:aws:iam::{{ central_account_id }}:root"
+                },
+                "Action": "sts:AssumeRole",
+                "Condition": {
+                  "StringEquals": {
+                    "sts:ExternalId": "disk-monitoring-{{ item.account_name }}"
+                  }
+                }
+              }
+            ]
+          }
+        managed_policies:
+          - arn:aws:iam::aws:policy/AmazonEC2ReadOnlyAccess
+        state: present
+      loop: "{{ accounts }}"
+      vars:
+        ansible_python_interpreter: "{{ ansible_playbook_python }}"
