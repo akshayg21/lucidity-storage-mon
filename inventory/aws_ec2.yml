@@ -1,0 +1,29 @@
+# Dynamic inventory configuration for multi-account EC2 discovery
+plugin: aws_ec2
+regions:
+  - us-east-1
+  - us-west-2
+  - eu-west-1
+
+# Group instances by account
+keyed_groups:
+  - key: account_id
+    prefix: account
+  - key: placement.region
+    prefix: region
+  - key: platform | default('linux')
+    prefix: os
+
+# Include running instances only
+filters:
+  instance-state-name: running
+
+# Compose variables for cross-account access
+compose:
+  ansible_host: public_ip_address | default(private_ip_address)
+  account_name: |
+    {
+      '111111111111': 'production',
+      '222222222222': 'staging', 
+      '333333333333': 'development'
+    }[account_id]

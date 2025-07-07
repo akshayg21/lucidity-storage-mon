@@ -1,0 +1,6 @@
+Instance ID,Account ID,Account Name,Region,Instance Type,Platform,Private IP,Public IP,Filesystem,Size,Used,Available,Percent Used,Mount Point,Timestamp
+{% for report in all_reports %}
+{% for disk in report.disk_usage %}
+{{ report.instance_id }},{{ report.account_id }},{{ report.account_name }},{{ report.region }},{{ report.instance_type }},{{ report.platform }},{{ report.private_ip }},{{ report.public_ip }},{{ disk.filesystem }},{{ disk.size }},{{ disk.used }},{{ disk.available }},{{ disk.percent }},{{ disk.mount }},{{ report.timestamp }}
+{% endfor %}
+{% endfor %}
